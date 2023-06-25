@@ -1,0 +1,7 @@
+﻿Le/Temp
+*.sln
+*.csproj
+Le/obj
+Le/Logs
+Le/Library
+Le/.idea
