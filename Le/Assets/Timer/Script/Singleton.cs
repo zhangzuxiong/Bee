@@ -7,11 +7,11 @@ namespace Bee
         /// <summary>
         /// 单例
         /// </summary>
-        private static T _Instance;
+        private static T _instance;
         /// <summary>
         /// 锁
         /// </summary>
-        private static int _Lock;
+        private static int _lock;
         /// <summary>
         /// 单例
         /// </summary>
@@ -19,35 +19,35 @@ namespace Bee
         {
             get
             {
-                if (_Instance == null)
+                if (_instance == null)
                 {
                     // 以原子操作的形式，将 32 位有符号整数设置为指定的值并返回原始值。用于代替线程锁
-                    if (0 == Interlocked.Exchange(ref _Lock, 1))
+                    if (0 == Interlocked.Exchange(ref _lock, 1))
                     {
                         try
                         {
-                            if (_Instance == null)
+                            if (_instance == null)
                             {
                                 //创建单例的实例
-                                _Instance = new T();
-                                _Instance.OnInit();
+                                _instance = new T();
+                                _instance.OnInit();
                             }
                         }
                         finally
                         {
-                            Interlocked.Exchange(ref _Lock, 0);
+                            Interlocked.Exchange(ref _lock, 0);
                         }
                     }
                 }
-                return _Instance;
+                return _instance;
             }
         }
 
         public virtual void Dispose()
         {
-            if (_Instance == this)
+            if (_instance == this)
             {
-                _Instance = null;
+                _instance = null;
             }
         }
 

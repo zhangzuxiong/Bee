@@ -12,17 +12,17 @@ namespace Bee
         /// <summary>
         /// 是否已初始化
         /// </summary>
-        private bool _IsInited;
+        private bool _isInited;
 
         /// <summary>
         /// 锁
         /// </summary>
-        private static int _Lock;
+        private static int _lock;
 
         /// <summary>
         /// 单例
         /// </summary>
-        private static T _Instance;
+        private static T _instance;
         /// <summary>
         /// 单例
         /// </summary>
@@ -30,41 +30,41 @@ namespace Bee
         {
             get
             {
-                if (_Instance == null)
+                if (_instance == null)
                 {
-                    _Instance = FindObjectOfType<T>();
-                    if (_Instance == null)
+                    _instance = FindObjectOfType<T>();
+                    if (_instance == null)
                     {
                         // 以原子操作的形式，将 32 位有符号整数设置为指定的值并返回原始值。用于代替线程锁
-                        if (0 == Interlocked.Exchange(ref _Lock, 1))
+                        if (0 == Interlocked.Exchange(ref _lock, 1))
                         {
                             try
                             {
-                                if (_Instance == null)
+                                if (_instance == null)
                                 {
-                                    _Instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
-                                    _Instance.DoInit();
+                                    _instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
+                                    _instance.DoInit();
                                 }
                             }
                             finally
                             {
-                                Interlocked.Exchange(ref _Lock, 0);
+                                Interlocked.Exchange(ref _lock, 0);
                             }
                         }
                     }
                 }
-                return _Instance;
+                return _instance;
             }
         }
 
         protected virtual void Awake()
         {
-            if (!_Instance)
+            if (!_instance)
             {
-                _Instance = this as T;
+                _instance = this as T;
                 DoInit();
             }
-            else if (_Instance != this)
+            else if (_instance != this)
             {
                 Destroy(gameObject);
             }
@@ -72,9 +72,9 @@ namespace Bee
 
         private void DoInit()
         {
-            if (!_IsInited)
+            if (!_isInited)
             {
-                _IsInited = true;
+                _isInited = true;
                 if (IsDontDestroy)
                 {
                     DontDestroyOnLoad(gameObject);
@@ -85,18 +85,18 @@ namespace Bee
 
         public virtual void Dispose()
         {
-            if (this == _Instance)
+            if (this == _instance)
             {
-                _Instance = null;
+                _instance = null;
                 Destroy(gameObject);
             }
         }
 
         protected virtual void OnDestroy()
         {
-            if (this == _Instance)
+            if (this == _instance)
             {
-                _Instance = null;
+                _instance = null;
             }
         }
 
