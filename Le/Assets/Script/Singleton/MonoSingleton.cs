@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Bee
 {
@@ -8,7 +9,7 @@ namespace Bee
         /// <summary>
         /// 跨场景是否不销毁
         /// </summary>
-        protected abstract bool IsDontDestroy { get; }
+        protected virtual bool IsDontDestroy => false;
         /// <summary>
         /// 是否已初始化
         /// </summary>
@@ -43,7 +44,7 @@ namespace Bee
                                 if (_instance == null)
                                 {
                                     _instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
-                                    _instance.DoInit();
+                                    _instance.Init();
                                 }
                             }
                             finally
@@ -62,7 +63,7 @@ namespace Bee
             if (!_instance)
             {
                 _instance = this as T;
-                DoInit();
+                Init();
             }
             else if (_instance != this)
             {
@@ -70,7 +71,7 @@ namespace Bee
             }
         }
 
-        private void DoInit()
+        private void Init()
         {
             if (!_isInited)
             {
