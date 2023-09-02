@@ -4,6 +4,6 @@ namespace Bee
 {
     public interface ISingleton : IDisposable
     {
-        void OnInit();
+        void Init();
     }
 }

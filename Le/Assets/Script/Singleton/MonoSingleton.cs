@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -53,6 +54,10 @@ namespace Bee
                             }
                         }
                     }
+                    else
+                    {
+                        _instance.Init();
+                    }
                 }
                 return _instance;
             }
@@ -71,7 +76,8 @@ namespace Bee
             }
         }
 
-        private void Init()
+        
+        public void Init()
         {
             if (!_isInited)
             {
@@ -89,6 +95,7 @@ namespace Bee
             if (this == _instance)
             {
                 _instance = null;
+                _isInited = false;
                 Destroy(gameObject);
             }
         }
@@ -98,6 +105,7 @@ namespace Bee
             if (this == _instance)
             {
                 _instance = null;
+                _isInited = false;
             }
         }
 

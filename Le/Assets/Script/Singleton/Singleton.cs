@@ -30,7 +30,7 @@ namespace Bee
                             {
                                 //创建单例的实例
                                 _instance = new T();
-                                _instance.OnInit();
+                                _instance.Init();
                             }
                         }
                         finally
@@ -49,6 +49,11 @@ namespace Bee
             {
                 _instance = null;
             }
+        }
+
+        public void Init()
+        {
+            OnInit();
         }
 
         public virtual void OnInit()
