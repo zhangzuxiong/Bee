@@ -12,10 +12,20 @@ namespace Bee.Test
             Debug.Log("这是一个单例");
         }
     }
+
+    public class PoolItem
+    {
+        public int id;
+        public PoolItem(int id)
+        {
+            this.id = id;
+        }
+    }
+    
     public class Test : MonoBehaviour
     {
         //单例测试
-        [RuntimeInitializeOnLoadMethod]
+        // [RuntimeInitializeOnLoadMethod]
         static void _SingletonTest()
         {
             SingletonTest.Instance.Test();
@@ -23,7 +33,7 @@ namespace Bee.Test
         
         
         //Timer测试
-        [RuntimeInitializeOnLoadMethod]
+        // [RuntimeInitializeOnLoadMethod]
         static void TimerTest()
         {
             bool condition = false;
@@ -49,6 +59,20 @@ namespace Bee.Test
                 loop_.Pause();
                 loop_.Kill();
             }).Execute();
+        }
+
+
+        [RuntimeInitializeOnLoadMethod]
+        static void PoolTest()
+        {
+            int id = 1;
+            Pool<PoolItem> pool = PoolMgr.CreatePool("PoolItem", () =>
+            {
+                return new PoolItem(id++);
+            });
+
+            PoolItem item = pool.GetObjFromPool();
+            Debug.Log(item.id);
         }
     }
 }
