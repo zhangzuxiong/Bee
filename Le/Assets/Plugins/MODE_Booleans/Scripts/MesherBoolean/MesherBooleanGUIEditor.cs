@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(MainMesherBoolean))]
+// [CustomEditor(typeof(MainMesherBoolean))]
 public class MesherBooleanGUIEditor : EditorWindow
 {
     /// <summary>
