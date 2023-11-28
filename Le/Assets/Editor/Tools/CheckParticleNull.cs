@@ -3,9 +3,9 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor
+namespace Editor.Tools
 {
-    public class CheckParticleNull
+    public abstract class CheckParticleNull
     {
         
         [MenuItem("Assets/检查特效材质丢失")]
@@ -26,7 +26,7 @@ namespace Editor
             }
         }
 
-        public static void CheckAllPrefab(string path)
+        private static void CheckAllPrefab(string path)
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] fileInfos = directoryInfo.GetFiles("*.prefab", SearchOption.AllDirectories);
@@ -38,7 +38,7 @@ namespace Editor
             }
         }
 
-        public static string GetPathInChild(GameObject root, GameObject child)
+        private static string GetPathInChild(GameObject root, GameObject child)
         {
             string path = child.name;
             while (child != root)
@@ -49,7 +49,7 @@ namespace Editor
 
             return path;
         }
-        public static void CheckParticlePrefabMatIsNull(string path)
+        private static void CheckParticlePrefabMatIsNull(string path)
         {
             Debug.Log("==============start==============");
             GameObject go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
@@ -60,7 +60,7 @@ namespace Editor
                 var render = item.GetComponent<Renderer>();
                 if (render.sharedMaterial == null)
                 {
-                    Debug.LogError(string.Format("{0} 材质丢失:{1}",path,GetPathInChild(go,item.gameObject)));
+                    Debug.LogError($"{path} 材质丢失:{GetPathInChild(go, item.gameObject)}");
                 }
             }
             Debug.Log("===============end==============");
