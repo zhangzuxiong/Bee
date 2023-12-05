@@ -1,7 +1,13 @@
 ManifestFileVersion: 0
-CRC: 288944905
+CRC: 2282538435
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: main/go
+      Dependencies: {}
+    Info_1:
+      Name: main.scene
+      Dependencies: {}
+    Info_2:
+      Name: tex
       Dependencies: {}

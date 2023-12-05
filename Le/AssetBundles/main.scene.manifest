@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 1172504211
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: dddf2c40fc708efa3f70f9dcab8294ac
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2d8df09e698f722ada1caa03d3413830
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: dddf2c40fc708efa3f70f9dcab8294ac
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Bundle/Tex/06_8.png
+Dependencies: []
