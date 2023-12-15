@@ -1,8 +1,33 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace Bee.Test
 {
+    [Serializable]
+    public class Student
+    {
+        public string name;
+        public int age;
+        public override string ToString()
+        {
+            return $"age:{age},name{name}";
+        }
+    }
+
+    public class JSONTest
+    {
+        [MenuItem("Test/json")]
+        public static void Test()
+        {
+            Tools.ClearConsole();
+            Student stu = new Student() { age = 20, name = "Tom" };
+            string s = JsonUtility.ToJson(stu);
+            Debug.LogError(s);
+            Student student = JsonUtility.FromJson<Student>(s);
+            Debug.LogError(student.ToString());
+        }
+    }
     public class SingletonTest : MonoSingleton<SingletonTest>
     {
         protected override bool IsDontDestroy => true;
